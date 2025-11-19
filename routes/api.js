@@ -4,7 +4,7 @@ import express from 'express'
 const router = express.Router()
 
 // Set this to match the model name in your Prisma schema
-const model = 'cats'
+const model = 'tickets'
 
 // Prisma lets NodeJS communicate with MongoDB
 // Let's import and initialize the Prisma client
@@ -65,7 +65,7 @@ router.get('/search', async (req, res) => {
         // fetch the records from the database
         const result = await prisma[model].findMany({
             where: {
-                name: {
+                concertName: {
                     contains: searchTerms,
                     mode: 'insensitive'  // case-insensitive search
                 }
