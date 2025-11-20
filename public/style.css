@@ -1,272 +1,383 @@
-/* Reset & base */
+/* =============================
+   GLOBAL + RESET
+============================= */
+
 * { box-sizing: border-box; }
-html, body { height: 100%; }
-body {
+
+html, body {
   margin: 0;
-  font-family: "Jost", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  background: #dff4fb; /* page light-blue */
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  font-family: "Jost", sans-serif;
+  background: #dff4fb;        /* page background */
   color: #052023;
-  text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Header band */
-header {
-  width: 100%;
-  background: #7ea6bd;
-  padding: 3rem 6rem;
-  box-sizing: border-box;
-  position: relative;
-}
-header h1 {
-  margin: 0 0 0.5rem 0;
-  font-size: 3.25rem;
-  font-weight: 400;
-  color: #051017;
-  line-height: 1;
-  text-align: left;
-}
-header p {
-  margin: 0.5rem 0 0 0;
-  color: rgba(5,16,23,0.9);
-  max-width: 75rem;
-  text-align: left;
+
+
+/* =============================
+   HEADER BAR
+============================= */
+
+/* Header band */ 
+header { 
+    width: 100%; 
+    background: #7ea6bd; 
+    padding: 3rem 8rem; 
+    box-sizing: border-box; 
+    position: relative; 
+} 
+
+header h1 { 
+    margin: 0 0 0.5rem 0; 
+    font-size: 3.25rem; 
+    font-weight: 400; 
+    color: #051017; 
+    line-height: 1; 
+    text-align: left; 
+} 
+
+header p { 
+    margin: 0.5rem 0 0 0; 
+    color: rgba(5,16,23,0.9); 
+    max-width: 75rem; 
+    text-align: left; 
 }
 
-/* Add new event button (pill) */
-#createButton, .create-btn {
-  position: absolute;
-  right: 6rem;
-  top: 2.25rem;
-  padding: 0.7rem 1.6rem;
+
+
+#createButton {
   background: #e6f6ff;
-  color: #0b3d4a;
+  color: #052023;
+  padding: 0.8rem 1.8rem;
   border-radius: 999px;
   border: none;
-  font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 4px 0 rgba(0,0,0,0.03);
+  font-weight: 700;
+  box-shadow: 0 3px 0 rgba(0,0,0,0.05);
 }
 
-/* Page container and grid for tickets */
-.container {
-  width: calc(100% - 14rem);
-  max-width: 1280px;
-  margin: 2.5rem auto;
+#createButton:hover {
+  background: #f3fbff;
 }
-.ticket-grid {
+
+#createButton, .create-btn { 
+    position: absolute; 
+    right: 6rem; 
+    top: 2.25rem; 
+    padding: 0.7rem 1.6rem; 
+    background: #e6f6ff; 
+    color: #0b3d4a; 
+    border-radius: 999px; 
+    border: none; 
+    font-weight: 700; 
+    cursor: pointer; 
+    box-shadow: 0 4px 0 rgba(0,0,0,0.03); 
+}
+
+
+
+/* =============================
+   STATUS BANNER (MongoDB ready)
+============================= */
+
+#statusBar,
+#readyStatus,
+#notReadyStatus {
+  width: 100%;
+  padding: 1rem 6rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #052023;
+}
+
+#readyStatus {
+  background: #c4f3cf;
+}
+
+#notReadyStatus {
+  background: #ffdede;
+  color: #7e0000;
+}
+
+
+
+/* =============================
+   CONTENT AREA – 2 COLUMN GRID
+============================= */
+
+#contentArea {
+  width: calc(100% - 12rem);
+  margin: 3rem auto;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2.5rem 3rem;
-  align-items: start;
+  grid-template-columns: repeat(2, minmax(360px, 1fr));
+  gap: 3rem 3rem;       /* spacing between cards */
 }
 
-/* Ticket card */
-.ticket-card, .item-card {
+
+
+/* =============================
+   TICKET CARDS
+============================= */
+
+.item-card {
   background: #6ea7b6;
-  color: #fff;
+  color: #ffffff;
   border-radius: 1.5rem;
   padding: 2rem;
+  border: 1px solid #cde4ed;
   display: flex;
-  gap: 1.25rem;
-  align-items: flex-start;
   justify-content: space-between;
-  min-height: 12rem;
+  align-items: flex-start;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+/* Left info block */
+.item-card .info,
+.item-info {
+  flex: 1 1 65%;
+  text-align: left;
+}
+
+.item-card h3 {
+  font-size: 1.6rem;
+  margin: 0 0 0.5rem 0;
+  color: #fff;
+}
+
+.item-info p {
+  margin: 0.3rem 0;
+  font-size: 0.95rem;
+}
+
+/* Right calendar block */
+.item-card .meta {
+  flex: 0 0 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+/* =============================
+   CALENDAR WIDGET
+============================= */
+
+.calendar {
+  width: 5rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.7rem;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  background: #fff;
+  text-align: center;
+}
+
+.calendar img {
+  width: 1.3rem;
+  margin: 0.25rem auto;
+  display: block;
+}
+
+.calendar .month {
+  background: #e6f6ff;
+  color: #0b3d4a;
+  padding: 0.3rem 0;
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.calendar .day {
+  background: #ffffff;
+    color: #0b3d4a;
+  font-size: 1.55rem;
+  font-weight: 700;
+  padding: 0.4rem 0;
+}
+
+.calendar .year {
+  background: #f3fbff;
+  color: #0b3d4a;
+  font-weight: 700;
+  font-size: 0.75rem;
+  padding: 0.3rem 0;
+}
+
+
+
+/* =============================
+   EDIT + DELETE BUTTONS
+============================= */
+
+main, 
+.about-section, 
+#about, 
+.section-body {
+  padding-left: 8rem;
+  padding-right: 8rem;
   box-sizing: border-box;
 }
 
-/* left column with text */
-.ticket-card .info, .item-card .info {
-  flex: 1 1 65%;
-  text-align: left;
-  padding-right: 1rem;
-}
-.ticket-card h3, .item-card h3 {
-  margin: 0 0 0.5rem 0;
-  font-size: 1.6rem;
-  color: #fff;
-}
-.meta-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  color: rgba(255,255,255,0.95);
-  font-size: 0.92rem;
-  line-height: 1.45;
-}
 
-/* actions */
 .item-actions {
   display: flex;
   gap: 1rem;
   margin-top: 1.25rem;
 }
-.edit-btn, .delete-btn {
-  padding: 0.5rem 1rem;
-  border-radius: 999px;
+
+.edit-btn,
+.delete-btn {
   border: none;
+  padding: 0.55rem 1.2rem;
+  border-radius: 999px;
   cursor: pointer;
   font-weight: 700;
-  color: #052023;
-  box-shadow: 0 2px 0 rgba(0,0,0,0.04);
-}
-.edit-btn { background: #e6f6ff; }
-.delete-btn { background: #ffdfe0; }
-
-/* calendar thumbnail column */
-.ticket-card .meta, .item-card .meta {
-  flex: 0 0 120px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-/* Calendar widget */
-.calendar {
-  display: flex;
-  flex-direction: column;
-  width: 5.5rem;
-  border-radius: 0.75rem;
-  overflow: hidden;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-  background: #ffffff;
-  color: #052023;
-  text-align: center;
-}
-.calendar .month {
+.edit-btn {
   background: #e6f6ff;
-  text-transform: uppercase;
-  font-weight: 700;
-  padding: 0.35rem 0;
-  font-size: 0.75rem;
-  color: #0b3d4a;
+  color: #052023;
 }
-.calendar .day {
-  padding: 0.5rem 0;
-  font-weight: 700;
-  font-size: 1.6rem;
-  background: #fff;
-}
-.calendar .year {
-  padding: 0.35rem 0;
-  font-weight: 700;
-  font-size: 0.75rem;
-  background: #f3fbff;
-  color: #0b3d4a;
-}
-.calendar img { width: 1.2rem; display:block; margin: 0.25rem auto; }
 
-/* Form panel (matches Figma: large centered panel) */
-.form-panel, #formPopover {
+.delete-btn {
+  background: #ffdfe0;
+  color: #052023;
+}
+
+.edit-btn:hover { background: #f3fbff; }
+.delete-btn:hover { background: #ffcbcd; }
+
+
+
+/* =============================
+   FORM PANEL
+============================= */
+
+.form-panel,
+#formPopover {
   background: #7ea6bd;
   color: #e6f6ff;
-  border-radius: 0.5rem;
-  padding: 2.75rem 3.5rem;
+  border-radius: 0.75rem;
+  padding: 3rem 3.5rem;
   width: min(1100px, calc(100% - 8rem));
-  margin: 0 auto 3rem auto;
+  margin: 2rem auto;
   box-shadow: 0 8px 30px rgba(10,30,40,0.12);
-  box-sizing: border-box;
-  position: relative; /* flow in page so page scroll works */
 }
 
-/* Form title */
-.form-panel h2 {
-  margin: 0 0 1.25rem 0;
-  color: #ffffff;
+#formPopover::backdrop {
+  background: rgba(0,0,0,0.5);
+}
+
+#formPopover h2 {
+  margin: 0 0 1.5rem 0;
   text-align: center;
-  font-weight: 600;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
+  color: #fff;
 }
 
-/* Grid layout for the inputs to match template */
+
+
+/* =============================
+   FORM LAYOUT – 4 COLUMN GRID
+============================= */
+
 #myForm {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
-  align-items: start;
+  gap: 1.6rem;
 }
+
 #myForm fieldset {
   border: none;
   margin: 0;
   padding: 0;
 }
+
 #myForm label {
   display: block;
-  font-weight: 600;
   margin-bottom: 0.35rem;
+  font-weight: 600;
   color: #e6f6ff;
-  font-size: 0.9rem;
 }
-#myForm small { display:block; margin-bottom:0.35rem; color: rgba(230,246,255,0.9); font-size:0.85rem; }
 
-/* make the input fields pale and full width within their grid cell */
-#myForm input[type="text"],
-#myForm input[type="number"],
-#myForm input[type="date"],
+#myForm input,
 #myForm select,
-#myForm input {
-  width: 100%;
-  background: #e6f6ff;
-  color: #052023;
-  border: none;
-  border-radius: 0.25rem;
-  padding: 0.45rem 0.6rem;
-  box-sizing: border-box;
-}
-
-/* Notes textarea spans full width */
 #myForm textarea {
   width: 100%;
-  min-height: 10rem;
-  padding: 1rem;
-  resize: vertical;
-  background: #e6f6ff;
+  padding: 0.55rem 0.7rem;
   border: none;
-  border-radius: 0.25rem;
-  box-sizing: border-box;
+  border-radius: 0.35rem;
+  background: #e6f6ff;
+  color: #052023;
 }
 
-/* Force the notes field to span all 4 columns */
-#myForm fieldset:last-of-type { grid-column: 1 / -1; }
+/* Notes field spans all 4 columns */
+#myForm textarea {
+  min-height: 10rem;
+  grid-column: 1 / -1;
+}
 
-/* Make the concert name / artist / venue / city each take 1 column */
-/* Next row (date, price, seat) will occupy 1 column each; if a select exists it will wrap automatically */
 
-/* Form actions (Save / Cancel) centered and spanning the full width */
+
+/* =============================
+   FORM BUTTONS (SAVE + CANCEL)
+============================= */
+
 .form-actions {
   grid-column: 1 / -1;
   display: flex;
   justify-content: center;
   gap: 2rem;
-  margin-top: 0.75rem;
 }
-.form-actions .btn, .save, .cancel {
+
+button.save,
+button.cancel {
   background: #e6f6ff;
   color: #052023;
   border: none;
-  padding: 0.7rem 1.35rem;
-  border-radius: 999px;
+  padding: 0.7rem 1.6rem;
   font-weight: 700;
+  border-radius: 999px;
   cursor: pointer;
-  box-shadow: 0 3px 0 rgba(0,0,0,0.04);
 }
 
-/* small spacer below actions so it's not flush with panel bottom */
-.form-end-spacer { height: 1.25rem; }
+button.save:hover,
+button.cancel:hover {
+  background: #f3fbff;
+}
 
-/* Footer and misc */
-.center { text-align: center; }
-.muted { color: rgba(5,16,23,0.6); font-size: 0.95rem; }
 
-/* Responsive: collapse to 1 column on small screens */
+
+/* =============================
+   RESPONSIVE
+============================= */
+
 @media (max-width: 900px) {
-  header { padding: 2rem; }
-  .container { width: calc(100% - 4rem); margin: 1.5rem auto; }
-  .ticket-grid { grid-template-columns: 1fr; gap: 1.25rem; }
-  #createButton { position: static; display:inline-block; margin: 0 0 1rem auto; }
-  #myForm { grid-template-columns: 1fr; gap: 1rem; }
-  #myForm fieldset:last-of-type { grid-column: auto; }
-  .form-panel { width: calc(100% - 2rem); padding: 1.25rem; }
-}
+  header {
+    padding: 2rem;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
 
-/* End of stylesheet */
+  #contentArea {
+    width: calc(100% - 3rem);
+    grid-template-columns: 1fr;
+  }
+
+  #myForm {
+    grid-template-columns: 1fr;
+  }
+
+  #formPopover {
+    width: calc(100% - 2rem);
+    padding: 1.5rem;
+  }
+}
