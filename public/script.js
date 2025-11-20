@@ -195,16 +195,11 @@ const renderItem = (item) => {
           <span>Price</span>
           <span>${item.price ? '$' + Number(item.price).toFixed(2) : '-'}</span>
         </div>
-                <div class="stat">
-                    <span>Start Time</span>
-                    <span>${item.startTime || '-'}</span>
-                </div>
       </div>
     </div>
 
     <div class="item-info">
     <p><strong>Seat:</strong> ${item.seatInfo || '-'}</p>
-    <p><strong>Start Time:</strong> ${item.startTime || '-'}</p>
     <p><strong>Status:</strong> ${item.concertDate ? (new Date(item.concertDate) < new Date() ? 'Past' : 'Upcoming') : '-'}</p>
     </div>
 
@@ -226,6 +221,39 @@ const renderItem = (item) => {
 
     return div
 }
+
+// ...existing code...
+
+// ensure the form popover has simple show/hide helpers used elsewhere
+if (formPopover) {
+  if (!formPopover.showPopover) {
+    formPopover.showPopover = function () {
+      this.hidden = false;
+      this.scrollTop = 0;
+      this.classList.add('open');
+    }
+  }
+  if (!formPopover.hidePopover) {
+    formPopover.hidePopover = function () {
+      this.hidden = true;
+      this.classList.remove('open');
+    }
+  }
+}
+
+// Reset the form when the create button is clicked.
+createButton.addEventListener('click', (e) => {
+  e.preventDefault();
+  myForm.reset();                     // clear inputs
+  if (myForm.elements['id']) {        // ensure hidden id is cleared
+    myForm.elements['id'].value = '';
+  }
+  formHeading.textContent = 'Add a Concert Ticket';
+  // show the form popover (works with the helpers above)
+  formPopover.showPopover();
+});
+
+// ...existing code...
 
 
 // Revert to the default form title on reset

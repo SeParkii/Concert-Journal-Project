@@ -16,7 +16,6 @@ model tickets {
   city          String?
 
   concertDate   DateTime? @db.Date
-  startTime     String?
 
   ticketType    String?
   price         Float?
