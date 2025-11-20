@@ -235,5 +235,44 @@ myForm.addEventListener('reset', () => formHeading.textContent = 'Add a Concert 
 // Reset the form when the create button is clicked. 
 createButton.addEventListener('click', myForm.reset())
 
+const getData = async () => {
+    try {
+        const response = await fetch('/data')
+
+        if (response.ok) {
+            readyStatus.style.display = 'block'
+            notReadyStatus.style.display = 'none'
+
+            const data = await response.json()
+            console.log('Fetched data:', data)
+
+            if (data.length == 0) {
+                contentArea.innerHTML = '<p><i>No data found in the database.</i></p>'
+                return
+            }
+            else {
+                contentArea.innerHTML = ''
+                data.forEach(item => {
+                    const itemDiv = renderItem(item)
+                    contentArea.appendChild(itemDiv)
+                })
+            }
+        }
+        else {
+            // If the request failed, show the "not ready" status
+            // to inform users that there may be a database connection issue
+            notReadyStatus.style.display = 'block'
+            readyStatus.style.display = 'none'
+            createButton.style.display = 'none'
+            contentArea.style.display = 'none'
+        }
+    } catch (error) {
+        console.error('Error fetching data:', error)
+        notReadyStatus.style.display = 'block'
+    }
+}
+
 // Load initial data
 getData()
+
+
