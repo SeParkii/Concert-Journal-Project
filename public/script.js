@@ -275,6 +275,3 @@ const getData = async () => {
 getData()
 
 
-git config --global user.name "SeParkii"
-git config --global user.email "yet@sheridancollege.ca"
-
