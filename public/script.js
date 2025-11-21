@@ -156,6 +156,7 @@ const calendarWidget = (date) => {
     const day = new Date(date).toLocaleString("en-CA", { day: '2-digit', timeZone: "UTC" })
     const year = new Date(date).toLocaleString("en-CA", { year: 'numeric', timeZone: "UTC" })
     return ` <div class="calendar">
+
                 <div class="month">${month}</div>
                 <div class="day">${day}</div> 
                 <div class="year">${year}</div>
@@ -298,5 +299,3 @@ const getData = async () => {
 
 // Load initial data
 getData()
-
-
